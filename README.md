@@ -4,6 +4,10 @@ Course: AIInAction - VinUni
 Buổi: Day 21 - CI/CD cho AI Systems
 Khoá: K4
 
+> Triển khai của repo này dùng **Azure Blob Storage** và Azure VM. Xem lệnh thiết lập
+> thực tế tại [AZURE_DEPLOYMENT.md](AZURE_DEPLOYMENT.md); không dùng các lệnh GCP minh họa
+> bên dưới cho repo này.
+
 ---
 
 ## Mục Tiêu Học Tập
@@ -218,14 +222,14 @@ mlflow==2.13.0
 scikit-learn==1.4.2
 pandas==2.2.2
 # DVC extra theo provider: [gs]=GCP, [s3]=AWS, [azure]=Azure
-dvc[gs]==3.50.1
+dvc[azure]==3.50.1
 pathspec==0.11.2
 pytest==8.2.0
 fastapi==0.111.0
 uvicorn==0.29.0
 joblib==1.4.2
 # Cloud SDK theo provider: google-cloud-storage (GCP), boto3 (AWS), azure-storage-blob (Azure)
-google-cloud-storage==2.16.0
+azure-storage-blob==12.20.0
 pyyaml==6.0.1
 ```
 
