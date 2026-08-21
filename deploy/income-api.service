@@ -1,0 +1,16 @@
+[Unit]
+Description=Income Model Inference Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=azureuser
+WorkingDirectory=/home/azureuser
+Environment="ARTIFACT_BUCKET=income-lab"
+Environment="AZURE_STORAGE_ACCOUNT=incomechinh448"
+ExecStart=/usr/bin/python3 /home/azureuser/src/serve.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobClient
 import joblib
 import os
@@ -15,16 +16,25 @@ def download_model():
     """
     Tai file model.joblib tu cloud storage ve may khi server khoi dong.
 
-    Ham nay duoc goi mot lan khi module duoc import. Su dung
-    GOOGLE_APPLICATION_CREDENTIALS de xac thuc (duoc dat trong systemd service).
+    Ham nay duoc goi mot lan khi module duoc import. CI/local co the dung
+    connection string; Azure VM dung system-assigned Managed Identity.
     """
-    connection_string = os.environ["AZURE_STORAGE_CONNECTION_STRING"]
     os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
-    blob = BlobClient.from_connection_string(
-        conn_str=connection_string,
-        container_name=ARTIFACT_BUCKET,
-        blob_name=MODEL_KEY,
-    )
+    connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+    if connection_string:
+        blob = BlobClient.from_connection_string(
+            conn_str=connection_string,
+            container_name=ARTIFACT_BUCKET,
+            blob_name=MODEL_KEY,
+        )
+    else:
+        account_name = os.environ["AZURE_STORAGE_ACCOUNT"]
+        blob = BlobClient(
+            account_url=f"https://{account_name}.blob.core.windows.net",
+            container_name=ARTIFACT_BUCKET,
+            blob_name=MODEL_KEY,
+            credential=DefaultAzureCredential(),
+        )
     with open(MODEL_PATH, "wb") as model_file:
         stream = blob.download_blob()
         model_file.write(stream.readall())

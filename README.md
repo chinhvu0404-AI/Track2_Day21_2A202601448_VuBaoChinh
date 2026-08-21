@@ -230,6 +230,7 @@ uvicorn==0.29.0
 joblib==1.4.2
 # Cloud SDK theo provider: google-cloud-storage (GCP), boto3 (AWS), azure-storage-blob (Azure)
 azure-storage-blob==12.20.0
+azure-identity==1.17.1
 pyyaml==6.0.1
 ```
 
