@@ -2,9 +2,9 @@
 
 | | |
 |---|---|
-| Họ và tên | Vũ Bảo Chính |
+| Họ và tên | Vũ Bảo Chinh |
 | MSSV | 2A202601448 |
-| Lớp / Khóa | K4 |
+| Lớp / Khóa | 3B |
 | Repo GitHub | https://github.com/chinhvu0404-AI/Track2_Day21_2A202601448_VuBaoChinh |
 | Ngày nộp | 21/08/2026 |
 
